@@ -7,25 +7,18 @@ fn main() {
     let stdin = io::stdin();
 
     stdin.lock().lines()
-        .map(|l| l.unwrap())
-        .collect::<Vec<String>>()
+        .collect::<io::Result<Vec<String>>>()
+        .unwrap()
         .into_iter()
         .tuple_combinations()
-        .map(|(a, b)| {
+        .filter_map(|(a, b)| {
             let matching = a.chars().zip(b.chars())
-                .filter_map(|(a, b)| {
-                    if a == b {
-                        Some(a)
-                    } else {
-                        None
-                    }
-                })
+                .filter_map(|(a, b)| Some(a).filter(|a| *a == b))
                 .collect::<String>();
 
-            (matching, a.len() as i32)
+            Some(matching).filter(|m| m.len() as i32 - a.len() as i32 == -1)
         })
-        .filter(|(cs, l)| cs.len() as i32 - *l == -1)
-        .foreach(|(cs, _)| {
-            println!("SEQUENCE FOUND: {}", cs);
+        .foreach(|s| {
+            println!("SEQUENCE FOUND: {}", s);
         });
 }
