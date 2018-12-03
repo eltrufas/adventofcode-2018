@@ -1,10 +1,8 @@
 import sys
-import itertools
+from itertools import cycle, accumulate
 
 freqs = set([])
-freq = 0
-for df in itertools.cycle(int(l) for l in sys.stdin):
-    freq += df
+for freq in accumulate(cycle(int(l) for l in sys.stdin)):
     if freq in freqs:
         break
     freqs.add(freq)
