@@ -6,3 +6,5 @@ edition = "2018"
 
 [dependencies]
 itertools = "0.7.11"
+regex = "1"
+chrono = "0.4.6"

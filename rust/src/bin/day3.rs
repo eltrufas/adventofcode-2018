@@ -45,6 +45,6 @@ fn main() {
         }
     }
 
-    let overlap = map.values().filter(|v| v > 1).count();
+    let overlap = map.values().filter(|v| **v > 1).count();
     println!("{}", overlap);
 }
